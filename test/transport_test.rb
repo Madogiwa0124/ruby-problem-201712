@@ -2,13 +2,34 @@ require 'minitest/autorun'
 require './lib/transport'
 
 class TransportTest < MiniTest::Test
-  def test_transport
-    input = "1 2 3\n4 5 6\n7 8 9"
-    output = "1 4 7\n2 5 8\n3 6 9"
-    assert_equal output, transport(input)
+  def test_transpose_3x3
+    input = <<~TEXT.chomp
+      1 2 3
+      4 5 6
+      7 8 9
+    TEXT
 
-    input = "1 2 3\n4 5 6\n7 8 9\n10 11 12"
-    output = "1 4 7 10\n2 5 8 11\n3 6 9 12"
-    assert_equal output, transport(input)
+    output = <<~TEXT.chomp
+      1 4 7
+      2 5 8
+      3 6 9
+    TEXT
+    assert_equal output, Transpose.new(input).transpose
+  end
+
+  def test_transpose_3x4
+    input = <<~TEXT.chomp
+      1 2 3
+      4 5 6
+      7 8 9
+      10 11 12
+    TEXT
+
+    output = <<~TEXT.chomp
+      1 4 7 10
+      2 5 8 11
+      3 6 9 12
+    TEXT
+    assert_equal output, Transpose.new(input).transpose
   end
 end
